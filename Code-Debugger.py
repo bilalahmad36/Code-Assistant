@@ -30,9 +30,6 @@ Syntax_Errors:
 Suggested_Fixes:
 - Provide clear, step-by-step solutions or code-level changes to fix each issue and improve reliability, readability, and performance.
 
-Corrected_Code:
-- Present the fully corrected and improved version of the code with proper indentation and best practices applied.
-
 """
 
 st.title("AI Code Debugger")

@@ -11,7 +11,7 @@ Model_Key = os.getenv("OPEN_ROUTER_KEY")
 llm = ChatOpenAI(
     base_url = "https://openrouter.ai/api/v1" ,
     api_key = Model_Key,
-    model_name = "openai/gpt-oss-20b:free"
+    model_name = "deepseek/deepseek-r1-0528-qwen3-8b:free"
 )
 
 prompt = """You are an AI Code Reviewer.
@@ -29,9 +29,6 @@ Potential_Issues:
 Suggestions:
 - Offer clear and actionable recommendations for improving performance, clarity, or maintainability.
 
-Code:
-- Present an improved and corrected version of the code, following best practices.
-
 """
 
 st.title("AI Code Reviewer")
@@ -41,7 +38,7 @@ st.write("Paste your Python code below and click **Review Code** to get AI feedb
 user_code = st.text_area("Your Code:", height=200, placeholder="Paste your Python code here...")
 
 # Review button
-if st.button("🚀 Review Code"):
+if st.button("Review Code"):
     if not user_code.strip():
         st.warning("Please paste some code first.")
     else:
