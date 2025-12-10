@@ -1,0 +1,42 @@
+name: CI/CD Streamlit App
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run basic lint check
+      run: |
+        pip install flake8
+        flake8 app.py
+
+    - name: Run Streamlit test
+      run: |
+        streamlit run app.py --server.headless true & sleep 10
+
+    - name: Deploy to Streamlit
+      env:
+        STREAMLIT_USERNAME: ${{ secrets.STREAMLIT_USERNAME }}
+        STREAMLIT_PASSWORD: ${{ secrets.STREAMLIT_PASSWORD }}
+      run: |
+        pip install streamlit
+        streamlit run app.py --server.headless true
